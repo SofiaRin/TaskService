@@ -176,7 +176,7 @@ class Main extends egret.DisplayObjectContainer {
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);
 
-        var updateTaskPanel = new egret.Timer(1000, 0)
+        var updateTaskPanel = new egret.Timer(500, 0)
         updateTaskPanel.start();
 
         updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, () => {
