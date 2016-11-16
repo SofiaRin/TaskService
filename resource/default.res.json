@@ -1,0 +1,85 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,npc_1_taskFinish_png,npc_1_taskDuring_png,npc_0_taskAcceptable_png,npc_0_nullIcon_png,npc_0_taskDuring_png,npc_0_taskFinish_png,npc_1_nullIcon_png,npc_1_taskAcceptable_png,Accept_png,Close_png,Finish_png,DialogueBg_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/npc_1_taskFinish.png",
+			"type": "image",
+			"name": "npc_1_taskFinish_png"
+		},
+		{
+			"url": "assets/npc_1_taskDuring.png",
+			"type": "image",
+			"name": "npc_1_taskDuring_png"
+		},
+		{
+			"url": "assets/npc_0_taskAcceptable.png",
+			"type": "image",
+			"name": "npc_0_taskAcceptable_png"
+		},
+		{
+			"url": "assets/npc_0_nullIcon.png",
+			"type": "image",
+			"name": "npc_0_nullIcon_png"
+		},
+		{
+			"url": "assets/npc_0_taskDuring.png",
+			"type": "image",
+			"name": "npc_0_taskDuring_png"
+		},
+		{
+			"url": "assets/npc_0_taskFinish.png",
+			"type": "image",
+			"name": "npc_0_taskFinish_png"
+		},
+		{
+			"url": "assets/npc_1_nullIcon.png",
+			"type": "image",
+			"name": "npc_1_nullIcon_png"
+		},
+		{
+			"url": "assets/npc_1_taskAcceptable.png",
+			"type": "image",
+			"name": "npc_1_taskAcceptable_png"
+		},
+		{
+			"url": "assets/Accept.png",
+			"type": "image",
+			"name": "Accept_png"
+		},
+		{
+			"url": "assets/Close.png",
+			"type": "image",
+			"name": "Close_png"
+		},
+		{
+			"url": "assets/Finish.png",
+			"type": "image",
+			"name": "Finish_png"
+		},
+		{
+			"url": "assets/DialogueBg.png",
+			"type": "image",
+			"name": "DialogueBg_png"
+		}
+	]
+}
