@@ -5,3 +5,8 @@ interface Observer{
   onChange(task:Task) 
     
 }
+
+interface SenceObserver{
+
+  onChange(id:number) 
+}

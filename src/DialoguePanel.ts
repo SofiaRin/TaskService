@@ -68,14 +68,7 @@ class DialoguePanel extends egret.DisplayObjectContainer {
             }
         });
 
-        
-
-
-
     }
-
-
-
 
     private onDialogPanelClicked(_npcid: string) {
 
@@ -99,10 +92,10 @@ class DialoguePanel extends egret.DisplayObjectContainer {
                     console.log(taskInfo[t].fromNpcId);
                     console.log(taskInfo[t].toNpcId);
 
-                    if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == 1) {
+                    if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == TaskStatus.ACCEPTABLE) {
 
 
-                        TaskService.getInstance().accept(t);
+                        TaskService.getInstance().accept(t);//////////////////////
 
                     }
                 }
@@ -126,18 +119,19 @@ class DialoguePanel extends egret.DisplayObjectContainer {
                     console.log(taskInfo[t].fromNpcId);
                     console.log(taskInfo[t].toNpcId);
 
-                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == 2) {
+                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.DURING) {
 
 
-                        TaskService.getInstance().readyToSubmit(t);
-                        return 0;
+                        //TaskService.getInstance().readyToSubmit(t);///////////////////////////
+                        //taskInfo[t].checkStatus();
+                  
 
                     }
 
-                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == 3) {
+                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.CAN_SUBMIT) {
 
 
-                        TaskService.getInstance().finish(t);
+                        TaskService.getInstance().finish(t);/////////////////////////
 
                     }
 

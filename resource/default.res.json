@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,npc_1_taskFinish_png,npc_1_taskDuring_png,npc_0_taskAcceptable_png,npc_0_nullIcon_png,npc_0_taskDuring_png,npc_0_taskFinish_png,npc_1_nullIcon_png,npc_1_taskAcceptable_png,Accept_png,Close_png,Finish_png,DialogueBg_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,npc_1_taskFinish_png,npc_1_taskDuring_png,npc_0_taskAcceptable_png,npc_0_nullIcon_png,npc_0_taskDuring_png,npc_0_taskFinish_png,npc_1_nullIcon_png,npc_1_taskAcceptable_png,Accept_png,Close_png,Finish_png,DialogueBg_png,Kill_png",
 			"name": "preload"
 		}
 	],
@@ -80,6 +80,11 @@
 			"url": "assets/DialogueBg.png",
 			"type": "image",
 			"name": "DialogueBg_png"
+		},
+		{
+			"url": "assets/Kill.png",
+			"type": "image",
+			"name": "Kill_png"
 		}
 	]
 }

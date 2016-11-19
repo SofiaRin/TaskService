@@ -1,7 +1,7 @@
-class TaskService {
+class TaskService implements Observer {
     private observerList: Observer[] = [];
 
-    //private taskList:Task[] = [];
+
 
     private taskList: {
 
@@ -38,8 +38,12 @@ class TaskService {
 
     }
 
+    onChange(task:Task) {
+        this.notify(task);
+    }
 
 
+/*
     public finish(id: string): ErrorCode {
         if (id == null) {
             return ErrorCode.NULLTASK_ID;
@@ -57,7 +61,7 @@ class TaskService {
         return ErrorCode.SUCCESSED;
     }
 
-
+/*
     public readyToSubmit(id: string) {
         if (id == null) {
             return ErrorCode.NULLTASK_ID;
@@ -74,26 +78,26 @@ class TaskService {
         this.notify(task);
         return ErrorCode.SUCCESSED;
     }
-
-
-    public accept(id: string): ErrorCode {
-        if (id == null) {
-            return ErrorCode.NULLTASK_ID;
+*/
+    
+        public accept(id: string): ErrorCode {
+            if (id == null) {
+                return ErrorCode.NULLTASK_ID;
+            }
+    
+            var task = this.taskList[id];
+    
+            if (task == null) {
+                return ErrorCode.MISSING_TASK;
+            }
+            
+            task.onAccept(task);
+            console.log(task.name + " TaskService Info Confirm!");
+            
+            return ErrorCode.SUCCESSED;
+    
         }
-
-        var task = this.taskList[id];
-
-        if (task == null) {
-            return ErrorCode.MISSING_TASK;
-        }
-        
-        task.status = TaskStatus.DURING;
-        console.log(task.name + " Mission Accept!");
-        this.notify(task);
-        return ErrorCode.SUCCESSED;
-
-    }
-
+    
 
 
     public addTask(task: Task) {

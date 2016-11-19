@@ -142,7 +142,9 @@ class Main extends egret.DisplayObjectContainer {
         }, this);
         */
 
-        var task01 = new Task("001", "Welcome to the World of Warcraft", "Click the whiteMan", "npc_0", "npc_1", 1);
+        var task01 = new Task("001", "Welcome to the World of Warcraft", "Click the whiteMan", 
+        "npc_0", "npc_1", 1 , new NPCTalkTaskCondition(),1);
+        
         TaskService.getInstance().addTask(task01);
         var missionPanel = new TaskPanel();
         this.addChild(missionPanel);
@@ -161,17 +163,9 @@ class Main extends egret.DisplayObjectContainer {
         npc_1.x = stageW / 1.6
         npc_1.y = stageH / 2;
 
-
-
-
-
-
-
         TaskService.getInstance().addObserver(npc_0);
         TaskService.getInstance().addObserver(npc_1);
         TaskService.getInstance().addObserver(missionPanel);
-
-
 
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);

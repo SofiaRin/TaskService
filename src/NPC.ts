@@ -86,15 +86,7 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
                         _npc.changeImage();
 
                     }
-
-
-
                 }
-
-
-
-
-
             }
         });
     }
