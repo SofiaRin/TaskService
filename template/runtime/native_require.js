@@ -14,6 +14,7 @@ var game_file_list = [
 	"bin-debug/MissionPanel.js",
 	"bin-debug/NPC.js",
 	"bin-debug/Observer.js",
+	"bin-debug/SenceService.js",
 	"bin-debug/Task.js",
 	"bin-debug/TaskService.js",
 	//----auto game_file_list end----

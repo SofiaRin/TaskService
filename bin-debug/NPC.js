@@ -48,8 +48,8 @@ var NPC = (function (_super) {
         var menu = TaskService.getInstance();
         menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
             for (var t in taskInfo) {
-                console.log(taskInfo[t].fromNpcId);
-                console.log(taskInfo[t].toNpcId);
+                //console.log(taskInfo[t].fromNpcId);
+                //console.log(taskInfo[t].toNpcId);
                 if (taskInfo[t].fromNpcId == _npc.id || taskInfo[t].toNpcId == _npc.id) {
                     if (taskInfo[t].fromNpcId == _npc.id && taskInfo[t].status == 1) {
                         _npc.npcStatus = NpcStatus.READY_FOR_ACCEPT;

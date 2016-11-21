@@ -1,7 +1,6 @@
 var TaskService = (function () {
     function TaskService() {
         this.observerList = [];
-        //private taskList:Task[] = [];
         this.taskList = {};
         TaskService.count++;
         if (TaskService.count > 1) {
@@ -18,6 +17,9 @@ var TaskService = (function () {
     p.getTaskByCustomRule = function (rule) {
         return rule(this.taskList);
     };
+    p.onChange = function (task) {
+        this.notify(task);
+    };
     p.finish = function (id) {
         if (id == null) {
             return ErrorCode.NULLTASK_ID;
@@ -26,24 +28,28 @@ var TaskService = (function () {
         if (task == null) {
             return ErrorCode.MISSING_TASK;
         }
-        task.status = TaskStatus.SUBMITTED;
-        console.log(task.name + " Mission Successed!");
-        this.notify(task);
+        task.onFinish(task);
+        console.log(task.name + " TaskService Info Finish!");
         return ErrorCode.SUCCESSED;
     };
-    p.readyToSubmit = function (id) {
-        if (id == null) {
-            return ErrorCode.NULLTASK_ID;
+    /*
+        public readyToSubmit(id: string) {
+            if (id == null) {
+                return ErrorCode.NULLTASK_ID;
+            }
+    
+            var task = this.taskList[id];
+    
+            if (task == null) {
+                return ErrorCode.MISSING_TASK;
+            }
+    
+            task.status = TaskStatus.CAN_SUBMIT;
+            console.log(task.name + " Mission Ready to Submit!");
+            this.notify(task);
+            return ErrorCode.SUCCESSED;
         }
-        var task = this.taskList[id];
-        if (task == null) {
-            return ErrorCode.MISSING_TASK;
-        }
-        task.status = TaskStatus.CAN_SUBMIT;
-        console.log(task.name + " Mission Ready to Submit!");
-        this.notify(task);
-        return ErrorCode.SUCCESSED;
-    };
+    */
     p.accept = function (id) {
         if (id == null) {
             return ErrorCode.NULLTASK_ID;
@@ -52,9 +58,8 @@ var TaskService = (function () {
         if (task == null) {
             return ErrorCode.MISSING_TASK;
         }
-        task.status = TaskStatus.DURING;
-        console.log(task.name + " Mission Accept!");
-        this.notify(task);
+        task.onAccept(task);
+        console.log(task.name + " TaskService Info Accept!");
         return ErrorCode.SUCCESSED;
     };
     p.addTask = function (task) {
@@ -71,7 +76,7 @@ var TaskService = (function () {
     TaskService.count = 0;
     return TaskService;
 }());
-egret.registerClass(TaskService,'TaskService');
+egret.registerClass(TaskService,'TaskService',["Observer"]);
 var ErrorCode;
 (function (ErrorCode) {
     ErrorCode[ErrorCode["SUCCESSED"] = 0] = "SUCCESSED";

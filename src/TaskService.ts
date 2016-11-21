@@ -43,7 +43,7 @@ class TaskService implements Observer {
     }
 
 
-/*
+
     public finish(id: string): ErrorCode {
         if (id == null) {
             return ErrorCode.NULLTASK_ID;
@@ -55,9 +55,9 @@ class TaskService implements Observer {
             return ErrorCode.MISSING_TASK;
         }
 
-        task.status = TaskStatus.SUBMITTED;
-        console.log(task.name + " Mission Successed!");
-        this.notify(task);
+        task.onFinish(task);
+        console.log(task.name + " TaskService Info Finish!");
+        
         return ErrorCode.SUCCESSED;
     }
 
@@ -92,7 +92,7 @@ class TaskService implements Observer {
             }
             
             task.onAccept(task);
-            console.log(task.name + " TaskService Info Confirm!");
+            console.log(task.name + " TaskService Info Accept!");
             
             return ErrorCode.SUCCESSED;
     

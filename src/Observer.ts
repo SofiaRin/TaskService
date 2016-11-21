@@ -8,5 +8,5 @@ interface Observer{
 
 interface SenceObserver{
 
-  onChange(id:number) 
+  onChange(id:string) 
 }

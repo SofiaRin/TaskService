@@ -121,10 +121,16 @@ var Main = (function (_super) {
             TaskService.getInstance().finish("001");
         }, this);
         */
-        var task01 = new Task("001", "Welcome to the World of Warcraft", "Click the whiteMan", "npc_0", "npc_1", 1);
+        var task01 = new Task("001", "Welcome to the World of Warcraft", "Click the whiteMan", "npc_0", "npc_1", TaskStatus.ACCEPTABLE, new NPCTalkTaskCondition(), 1);
+        var task02 = new Task("002", "Kill 4 pigs", "Tap button", "npc_1", "npc_1", TaskStatus.UNACCEPTABLE, new KillMonsterTaskCondition("B27"), 4);
         TaskService.getInstance().addTask(task01);
+        TaskService.getInstance().addTask(task02);
         var missionPanel = new TaskPanel();
         this.addChild(missionPanel);
+        var monster_0 = new KillMonsterButton("B27");
+        this.addChild(monster_0);
+        monster_0.x = stageW / 2;
+        monster_0.y = stageH / 2;
         var npc_0 = new NPC("npc_0");
         this.addChild(npc_0);
         npc_0.x = stageW / 7;
@@ -138,11 +144,15 @@ var Main = (function (_super) {
         TaskService.getInstance().addObserver(missionPanel);
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);
-        var updateTaskPanel = new egret.Timer(500, 0);
-        updateTaskPanel.start();
-        updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, function () {
-            missionPanel.initTaskPanel(missionPanel);
-        }, this);
+        missionPanel.initTaskPanel(missionPanel);
+        /*
+                var updateTaskPanel = new egret.Timer(500, 0)
+                updateTaskPanel.start();
+                
+                updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, () => {
+                   missionPanel.initTaskPanel(missionPanel);
+                }, this);
+        */
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

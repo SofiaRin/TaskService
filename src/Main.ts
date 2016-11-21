@@ -143,13 +143,21 @@ class Main extends egret.DisplayObjectContainer {
         */
 
         var task01 = new Task("001", "Welcome to the World of Warcraft", "Click the whiteMan", 
-        "npc_0", "npc_1", 1 , new NPCTalkTaskCondition(),1);
+        "npc_0", "npc_1", TaskStatus.ACCEPTABLE , new NPCTalkTaskCondition(),1,task02);
+
+        var task02 = new Task("002","Kill 4 pigs","Tap button",
+        "npc_1","npc_1",TaskStatus.UNACCEPTABLE,new KillMonsterTaskCondition("B27"),4,null)
         
+
         TaskService.getInstance().addTask(task01);
+        TaskService.getInstance().addTask(task02);
         var missionPanel = new TaskPanel();
         this.addChild(missionPanel);
 
-
+        var monster_0 = new KillMonsterButton("B27");
+        this.addChild(monster_0);
+        monster_0.x = stageW/2;
+        monster_0.y = stageH/2;
 
 
         var npc_0 = new NPC("npc_0");
@@ -169,14 +177,16 @@ class Main extends egret.DisplayObjectContainer {
 
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);
+        missionPanel.initTaskPanel(missionPanel);
 
+/*
         var updateTaskPanel = new egret.Timer(500, 0)
         updateTaskPanel.start();
-
+        
         updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, () => {
-            missionPanel.initTaskPanel(missionPanel);
+           missionPanel.initTaskPanel(missionPanel);
         }, this);
-
+*/
 
 
 

@@ -8,7 +8,7 @@ enum TaskStatus {
 
 }
 
-class Task implements TaskConditionContext {
+class Task implements TaskConditionContext, Observer {
     public id: string;
 
     public name: string;
@@ -29,7 +29,8 @@ class Task implements TaskConditionContext {
 
     private observerList: Observer[] = [];
 
-    constructor(_id: string, _name: string, _describe, _fromNpcId: string, _toNpcId: string, _status, _condition: TaskCondition, _total: number) {
+    constructor(_id: string, _name: string, _describe, _fromNpcId: string, _toNpcId: string,
+        _status: TaskStatus, _condition: TaskCondition, _total: number, _nextTask: Task) {
 
         this.id = _id;
 
@@ -46,6 +47,8 @@ class Task implements TaskConditionContext {
         this.condition = _condition;
 
         this.addObserver(TaskService.getInstance())
+
+        this.addObserver(_nextTask)
 
         this.total = _total;
 
@@ -84,6 +87,12 @@ class Task implements TaskConditionContext {
         }
     }
 
+    onChange(_nextTask: Task) {
+
+        if (_nextTask.status == TaskStatus.UNACCEPTABLE)
+            _nextTask.status = TaskStatus.ACCEPTABLE;
+    }
+
 
     public onAccept(task: Task): ErrorCode {
 
@@ -98,7 +107,7 @@ class Task implements TaskConditionContext {
         this.notify(task);
         this.condition.acceptProgress(this);
 
-       // this.checkStatus();
+        // this.checkStatus();
 
         return ErrorCode.SUCCESSED;
 
@@ -168,16 +177,17 @@ class NPCTalkTaskCondition extends TaskCondition {
 
 class KillMonsterTaskCondition extends TaskCondition implements SenceObserver {
 
-    public tragetMonsterId: number;
+    public tragetMonsterId: string;
 
-    constructor(_tragetMonsterId: number) {
+    constructor(_tragetMonsterId: string) {
         super();
         this.tragetMonsterId = _tragetMonsterId;
+        SenceService.getInstance().addObserver(this);
     }
 
 
     acceptProgress(_taskConditionContext: TaskConditionContext) {
-    
+
     }
 
     updateProgress(_taskConditionContext: TaskConditionContext) {
@@ -187,10 +197,9 @@ class KillMonsterTaskCondition extends TaskCondition implements SenceObserver {
     }
 
 
-    onChange(_monsterId: number) {
+    onChange(_monsterId: string) {
         if (_monsterId == this.tragetMonsterId) {
-        
-        
+            console.log("That is one kill");
         }
 
     }

@@ -46,7 +46,7 @@ class DialoguePanel extends egret.DisplayObjectContainer {
     private initDialog(_npcid: string, _currentText: egret.TextField) {
 
         _currentText = new egret.TextField();
-        _currentText.text = "Wait for init"
+        //_currentText.text = "Wait for init"
         this.addChild(_currentText);
         _currentText.x = 0
 
@@ -55,13 +55,13 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
             for (var t in taskInfo) {
 
-                console.log(taskInfo[t].fromNpcId);
-                console.log(taskInfo[t].toNpcId);
+                //console.log(taskInfo[t].fromNpcId);
+                //console.log(taskInfo[t].toNpcId);
 
                 if (taskInfo[t].fromNpcId == _npcid || taskInfo[t].toNpcId == _npcid) {
 
 
-                    _currentText.text = "Mission Related :" + "\n" +taskInfo[t].id;
+                    _currentText.text += "Task: "+taskInfo[t].id  + " Status: " + taskInfo[t].status +  "\n";
                     
 
                 }
@@ -89,20 +89,24 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
                 for (var t in taskInfo) {
 
-                    console.log(taskInfo[t].fromNpcId);
-                    console.log(taskInfo[t].toNpcId);
+                    //console.log(taskInfo[t].fromNpcId);
+                    //console.log(taskInfo[t].toNpcId);
 
                     if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == TaskStatus.ACCEPTABLE) {
 
 
                         TaskService.getInstance().accept(t);//////////////////////
+                        console.log("Accept Successed");
 
+                    }else{
+
+                        console.log(taskInfo[t].id +" is Unavaliable Now");
                     }
                 }
             });
 
 
-            console.log("Accept")
+            
 
 
 
@@ -116,29 +120,28 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
                 for (var t in taskInfo) {
 
-                    console.log(taskInfo[t].fromNpcId);
-                    console.log(taskInfo[t].toNpcId);
-
+                    //console.log(taskInfo[t].fromNpcId);
+                    //console.log(taskInfo[t].toNpcId);
+/*
                     if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.DURING) {
-
-
-                        //TaskService.getInstance().readyToSubmit(t);///////////////////////////
-                        //taskInfo[t].checkStatus();
-                  
-
+                        console.log("Task Unfinished");
                     }
-
+*/
                     if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.CAN_SUBMIT) {
 
 
                         TaskService.getInstance().finish(t);/////////////////////////
+                        console.log("Finish Successed")
+                    
 
+                    }else{
+                        console.log("Task Unfinished");
                     }
 
                 }
             });
 
-            console.log("Finish")
+            
 
         }, this);
 

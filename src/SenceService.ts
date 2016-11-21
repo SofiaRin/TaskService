@@ -31,7 +31,7 @@ class SenceService {
 
 
 
-    private notify(_monsterId: number): void {
+    private notify(_monsterId: string): void {
 
         for (var i = 0; i < this.observerList.length; i++) {
 
@@ -73,16 +73,19 @@ class KillMonsterButton extends egret.DisplayObjectContainer implements Observer
             menu.getTaskByCustomRule(function sortForMonster(taskInfo) {
 
                 for (var t in taskInfo) {
-                    if (taskInfo[t].condition.tragetMonsterId == this._monsterId) {
+                    if (taskInfo[t].condition.tragetMonsterId == this._monsterId && taskInfo[t].status == TaskStatus.DURING) {
+                        
+                    SenceService.getInstance().notify(this.monsterId);
                     taskInfo[t].condition.updateProgress(taskInfo[t]);
 
                     }
 
                 }
+                console.log("Monster Kill Tap");
             }
             )
 
-            SenceService.getInstance().notify(this.monsterId);
+            
 
         }, this);
 

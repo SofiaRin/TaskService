@@ -76,8 +76,8 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
 
             for (var t in taskInfo) {
 
-                console.log(taskInfo[t].fromNpcId);
-                console.log(taskInfo[t].toNpcId);
+                //console.log(taskInfo[t].fromNpcId);
+                //console.log(taskInfo[t].toNpcId);
 
                 if (taskInfo[t].fromNpcId == _npc.id || taskInfo[t].toNpcId == _npc.id) {
 

@@ -9,8 +9,9 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
     constructor() {
         super();
         this.textField = new egret.TextField();
-        this.textField.text = "Wait for Init";
+        //this.textField.text = "Wait for Init";
         this.addChild(this.textField);
+        console.log("Building TaskPanel")
         /*
         this.btn_Accept = this.createBitmapByName("Accept_png");
         this.addChild(this.btn_Accept)
@@ -39,10 +40,11 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
         menu.getTaskByCustomRule(function sortForPanel(taskInfo) {
 
             for (var t in taskInfo) {
-
-                _taskPanel.textField.text = "Task name: " + (taskInfo[t].name + "\n" +"Task describe: " + taskInfo[t].describe) + "\nTask ID: " + taskInfo[t].id 
-                + "\nTask Status: " + taskInfo[t].status;
-
+                
+                _taskPanel.textField.text += "Task name: " + (taskInfo[t].name + "\n" +"Task describe: " + taskInfo[t].describe) + "\nTask ID: " + taskInfo[t].id 
+                + "\n";
+                //"\nTask Status: " + taskInfo[t].status +
+                
             }
         });
         this.addChild(this.textField);

@@ -28,16 +28,16 @@ var DialoguePanel = (function (_super) {
     };
     p.initDialog = function (_npcid, _currentText) {
         _currentText = new egret.TextField();
-        _currentText.text = "Wait for init";
+        //_currentText.text = "Wait for init"
         this.addChild(_currentText);
         _currentText.x = 0;
         var menu = TaskService.getInstance();
         menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
             for (var t in taskInfo) {
-                console.log(taskInfo[t].fromNpcId);
-                console.log(taskInfo[t].toNpcId);
+                //console.log(taskInfo[t].fromNpcId);
+                //console.log(taskInfo[t].toNpcId);
                 if (taskInfo[t].fromNpcId == _npcid || taskInfo[t].toNpcId == _npcid) {
-                    _currentText.text = "Mission Related :" + "\n" + taskInfo[t].id;
+                    _currentText.text += "Task: " + taskInfo[t].id + " Status: " + taskInfo[t].status + "\n";
                 }
             }
         });
@@ -50,31 +50,41 @@ var DialoguePanel = (function (_super) {
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
                 for (var t in taskInfo) {
-                    console.log(taskInfo[t].fromNpcId);
-                    console.log(taskInfo[t].toNpcId);
-                    if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == 1) {
-                        TaskService.getInstance().accept(t);
+                    //console.log(taskInfo[t].fromNpcId);
+                    //console.log(taskInfo[t].toNpcId);
+                    if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == TaskStatus.ACCEPTABLE) {
+                        TaskService.getInstance().accept(t); //////////////////////
+                        console.log("Accept Successed");
+                    }
+                    else {
+                        console.log(taskInfo[t].id + " is Unavaliable Now");
                     }
                 }
             });
-            console.log("Accept");
         }, this);
         this.btn_Finish.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
                 for (var t in taskInfo) {
-                    console.log(taskInfo[t].fromNpcId);
-                    console.log(taskInfo[t].toNpcId);
-                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == 2) {
-                        TaskService.getInstance().readyToSubmit(t);
-                        return 0;
+                    //console.log(taskInfo[t].fromNpcId);
+                    //console.log(taskInfo[t].toNpcId);
+                    /*
+                                        if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.DURING) {
+                                            console.log("Task Unfinished");
+                                        }
+                    */
+                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.CAN_SUBMIT) {
+                        TaskService.getInstance().finish(t); /////////////////////////
+                        console.log("Finish Successed");
+                        if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == TaskStatus.UNACCEPTABLE) {
+                            taskInfo[t].status = TaskStatus.ACCEPTABLE;
+                        }
                     }
-                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == 3) {
-                        TaskService.getInstance().finish(t);
+                    else {
+                        console.log("Task Unfinished");
                     }
                 }
             });
-            console.log("Finish");
         }, this);
     };
     return DialoguePanel;
