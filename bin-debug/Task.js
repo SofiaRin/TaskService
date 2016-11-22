@@ -7,7 +7,7 @@ var TaskStatus;
     TaskStatus[TaskStatus["SUBMITTED"] = 4] = "SUBMITTED";
 })(TaskStatus || (TaskStatus = {}));
 var Task = (function () {
-    function Task(_id, _name, _describe, _fromNpcId, _toNpcId, _status, _condition, _total) {
+    function Task(_id, _name, _describe, _fromNpcId, _toNpcId, _status, _condition, _total, _nextTask) {
         this.observerList = [];
         this.id = _id;
         this.name = _name;
@@ -17,6 +17,7 @@ var Task = (function () {
         this.status = _status;
         this.condition = _condition;
         this.addObserver(TaskService.getInstance());
+        this.nextTask = _nextTask;
         this.total = _total;
         this.current = 0;
     }
@@ -70,6 +71,9 @@ var Task = (function () {
             return ErrorCode.MISSING_TASK;
         }
         task.status = TaskStatus.SUBMITTED;
+        if (task.nextTask != null) {
+            task.nextTask.status = TaskStatus.ACCEPTABLE;
+        }
         console.log(task.name + " Mission Successed!");
         this.notify(task);
         return ErrorCode.SUCCESSED;
@@ -114,7 +118,7 @@ var KillMonsterTaskCondition = (function (_super) {
     p.acceptProgress = function (_taskConditionContext) {
     };
     p.updateProgress = function (_taskConditionContext) {
-        console.log("Monster Kill ");
+        console.log("Kill confirm - updateProgress");
         _taskConditionContext.currentPlus();
         _taskConditionContext.checkStatus();
     };

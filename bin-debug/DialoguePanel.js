@@ -76,9 +76,6 @@ var DialoguePanel = (function (_super) {
                     if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.CAN_SUBMIT) {
                         TaskService.getInstance().finish(t); /////////////////////////
                         console.log("Finish Successed");
-                        if (taskInfo[t].fromNpcId == _npcid && taskInfo[t].status == TaskStatus.UNACCEPTABLE) {
-                            taskInfo[t].status = TaskStatus.ACCEPTABLE;
-                        }
                     }
                     else {
                         console.log("Task Unfinished");

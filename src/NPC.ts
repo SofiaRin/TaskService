@@ -33,8 +33,8 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
 
 
     onChange(_task: Task) {
-        var changeTask = _task;  ///changeTask 可以获取外部变化的task
-        if (changeTask.fromNpcId == this.id) {
+        //var changeTask = _task;  ///changeTask 可以获取外部变化的task
+        if (_task.fromNpcId == this.id && _task.toNpcId != this.id ) {
             if (_task.status == 2) {
                 this.npcStatus = NpcStatus.NULLICON;
                 this.removeChild(this.emoji);
@@ -42,20 +42,26 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
                 
             }
         }
-        else if (changeTask.toNpcId == this.id) {
+        else if (_task.toNpcId == this.id) {
 
-            if (_task.status == 2) {
+            if (_task.status == TaskStatus.DURING) {
                 this.npcStatus = NpcStatus.DURING;
                 this.removeChild(this.emoji);
                 this.changeImage();
                 
             }
-            if (_task.status == 3) {
+            if (_task.status == TaskStatus.CAN_SUBMIT) {
                 this.npcStatus = NpcStatus.READY_FOR_SUBMITTED;
                 this.removeChild(this.emoji);
                 this.changeImage();
             }
-            if (_task.status == 4) {
+
+            if(_task.status == TaskStatus.SUBMITTED && _task.nextTask.status == TaskStatus.ACCEPTABLE){
+                this.npcStatus = NpcStatus.READY_FOR_ACCEPT;
+                this.removeChild(this.emoji);
+                this.changeImage();
+            }
+            if (_task.status == TaskStatus.SUBMITTED) {
                 this.npcStatus = NpcStatus.NULLICON;
                 this.removeChild(this.emoji);
                 this.changeImage();

@@ -55,7 +55,7 @@ class KillMonsterButton extends egret.DisplayObjectContainer implements Observer
 
         this.button = this.createBitmapByName("Kill_png");
         this.addChild(this.button);
-        this.onButtonClick(this.monsterId);
+        this.onButtonClick(_monsterId);
     }
 
     onChange() {
@@ -73,9 +73,9 @@ class KillMonsterButton extends egret.DisplayObjectContainer implements Observer
             menu.getTaskByCustomRule(function sortForMonster(taskInfo) {
 
                 for (var t in taskInfo) {
-                    if (taskInfo[t].condition.tragetMonsterId == this._monsterId && taskInfo[t].status == TaskStatus.DURING) {
+                    if (taskInfo[t].condition.tragetMonsterId == _monsterId && taskInfo[t].status == TaskStatus.DURING) {
                         
-                    SenceService.getInstance().notify(this.monsterId);
+                    SenceService.getInstance().notify(_monsterId);
                     taskInfo[t].condition.updateProgress(taskInfo[t]);
 
                     }

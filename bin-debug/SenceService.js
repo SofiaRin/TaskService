@@ -32,7 +32,7 @@ var KillMonsterButton = (function (_super) {
         this.monsterId = _monsterId;
         this.button = this.createBitmapByName("Kill_png");
         this.addChild(this.button);
-        this.onButtonClick(this.monsterId);
+        this.onButtonClick(_monsterId);
     }
     var d = __define,c=KillMonsterButton,p=c.prototype;
     p.onChange = function () {
@@ -43,8 +43,8 @@ var KillMonsterButton = (function (_super) {
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForMonster(taskInfo) {
                 for (var t in taskInfo) {
-                    if (taskInfo[t].condition.tragetMonsterId == this._monsterId && taskInfo[t].status == TaskStatus.DURING) {
-                        SenceService.getInstance().notify(this.monsterId);
+                    if (taskInfo[t].condition.tragetMonsterId == _monsterId && taskInfo[t].status == TaskStatus.DURING) {
+                        SenceService.getInstance().notify(_monsterId);
                         taskInfo[t].condition.updateProgress(taskInfo[t]);
                     }
                 }

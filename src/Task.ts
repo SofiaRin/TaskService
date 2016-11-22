@@ -8,7 +8,7 @@ enum TaskStatus {
 
 }
 
-class Task implements TaskConditionContext, Observer {
+class Task implements TaskConditionContext {
     public id: string;
 
     public name: string;
@@ -29,6 +29,8 @@ class Task implements TaskConditionContext, Observer {
 
     private observerList: Observer[] = [];
 
+    public nextTask: Task;
+
     constructor(_id: string, _name: string, _describe, _fromNpcId: string, _toNpcId: string,
         _status: TaskStatus, _condition: TaskCondition, _total: number, _nextTask: Task) {
 
@@ -46,9 +48,9 @@ class Task implements TaskConditionContext, Observer {
 
         this.condition = _condition;
 
-        this.addObserver(TaskService.getInstance())
+        this.addObserver(TaskService.getInstance());
 
-        this.addObserver(_nextTask)
+        this.nextTask = _nextTask;
 
         this.total = _total;
 
@@ -87,11 +89,7 @@ class Task implements TaskConditionContext, Observer {
         }
     }
 
-    onChange(_nextTask: Task) {
 
-        if (_nextTask.status == TaskStatus.UNACCEPTABLE)
-            _nextTask.status = TaskStatus.ACCEPTABLE;
-    }
 
 
     public onAccept(task: Task): ErrorCode {
@@ -132,8 +130,13 @@ class Task implements TaskConditionContext, Observer {
         }
 
         task.status = TaskStatus.SUBMITTED;
+        if (task.nextTask != null) {
+            task.nextTask.status = TaskStatus.ACCEPTABLE;
+        }
         console.log(task.name + " Mission Successed!");
         this.notify(task);
+        
+
         return ErrorCode.SUCCESSED;
     }
 
@@ -190,8 +193,8 @@ class KillMonsterTaskCondition extends TaskCondition implements SenceObserver {
 
     }
 
-    updateProgress(_taskConditionContext: TaskConditionContext) {
-        console.log("Monster Kill ");
+    public updateProgress(_taskConditionContext: TaskConditionContext) {
+        console.log("Kill confirm - updateProgress");
         _taskConditionContext.currentPlus();
         _taskConditionContext.checkStatus();
     }
