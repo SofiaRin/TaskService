@@ -14,6 +14,7 @@ var DialoguePanel = (function (_super) {
         this.btn_Finish.x = 0;
         this.btn_Finish.y = 100;
         this.btn_Finish.$setTouchEnabled(true);
+        this.currentTask = new egret.TextField();
         this.initDialog(_npcid, this.currentTask);
         this.onDialogPanelClicked(_npcid);
         //this.dialoguePanelBg.x = this.x - this.width/5;  //-108 , 300
@@ -27,8 +28,8 @@ var DialoguePanel = (function (_super) {
         return result;
     };
     p.initDialog = function (_npcid, _currentText) {
-        _currentText = new egret.TextField();
         //_currentText.text = "Wait for init"
+        _currentText.text = "";
         this.addChild(_currentText);
         _currentText.x = 0;
         var menu = TaskService.getInstance();
@@ -37,16 +38,19 @@ var DialoguePanel = (function (_super) {
                 //console.log(taskInfo[t].fromNpcId);
                 //console.log(taskInfo[t].toNpcId);
                 if (taskInfo[t].fromNpcId == _npcid || taskInfo[t].toNpcId == _npcid) {
-                    _currentText.text += "Task: " + taskInfo[t].id + " Status: " + taskInfo[t].status + "\n";
+                    _currentText.text += "Task: " + taskInfo[t].id + "\n"; //+ " Status: " + taskInfo[t].status + "\n";
                 }
             }
         });
     };
     p.onDialogPanelClicked = function (_npcid) {
+        var _this = this;
+        this.dialoguePanelBg.$setTouchEnabled(true);
         this.dialoguePanelBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             console.log("DialogBGClick");
         }, this);
         this.btn_Accept.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            _this.initDialog(_npcid, _this.currentTask);
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
                 for (var t in taskInfo) {
@@ -63,6 +67,7 @@ var DialoguePanel = (function (_super) {
             });
         }, this);
         this.btn_Finish.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            _this.initDialog(_npcid, _this.currentTask);
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
                 for (var t in taskInfo) {

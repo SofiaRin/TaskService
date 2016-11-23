@@ -144,15 +144,12 @@ var Main = (function (_super) {
         TaskService.getInstance().addObserver(missionPanel);
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);
-        missionPanel.initTaskPanel(missionPanel);
-        /*
-                var updateTaskPanel = new egret.Timer(500, 0)
-                updateTaskPanel.start();
-                
-                updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, () => {
-                   missionPanel.initTaskPanel(missionPanel);
-                }, this);
-        */
+        //missionPanel.initTaskPanel(missionPanel);
+        var updateTaskPanel = new egret.Timer(500, 0);
+        updateTaskPanel.start();
+        updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, function () {
+            missionPanel.initTaskPanel(missionPanel);
+        }, this);
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

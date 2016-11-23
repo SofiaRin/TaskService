@@ -34,15 +34,17 @@ var NPC = (function (_super) {
                 this.removeChild(this.emoji);
                 this.changeImage();
             }
-            if (_task.status == TaskStatus.SUBMITTED && _task.nextTask.status == TaskStatus.ACCEPTABLE) {
-                this.npcStatus = NpcStatus.READY_FOR_ACCEPT;
-                this.removeChild(this.emoji);
-                this.changeImage();
-            }
             if (_task.status == TaskStatus.SUBMITTED) {
                 this.npcStatus = NpcStatus.NULLICON;
                 this.removeChild(this.emoji);
                 this.changeImage();
+            }
+            if (_task.nextTask != null) {
+                if (_task.status == TaskStatus.SUBMITTED && _task.nextTask.status == TaskStatus.ACCEPTABLE) {
+                    this.npcStatus = NpcStatus.READY_FOR_ACCEPT;
+                    this.removeChild(this.emoji);
+                    this.changeImage();
+                }
             }
         }
         else {

@@ -182,16 +182,16 @@ class Main extends egret.DisplayObjectContainer {
 
         npc_0.initNpcTask(npc_0);
         npc_1.initNpcTask(npc_1);
-        missionPanel.initTaskPanel(missionPanel);
+        //missionPanel.initTaskPanel(missionPanel);
 
-/*
+
         var updateTaskPanel = new egret.Timer(500, 0)
         updateTaskPanel.start();
         
         updateTaskPanel.addEventListener(egret.TimerEvent.TIMER, () => {
            missionPanel.initTaskPanel(missionPanel);
         }, this);
-*/
+
 
 
 

@@ -26,7 +26,8 @@ class DialoguePanel extends egret.DisplayObjectContainer {
         this.btn_Finish.y = 100
         this.btn_Finish.$setTouchEnabled(true);
 
-        this.initDialog(_npcid,this.currentTask)
+        this.currentTask =new egret.TextField();
+        this.initDialog(_npcid, this.currentTask)
 
 
         this.onDialogPanelClicked(_npcid);
@@ -45,8 +46,9 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
     private initDialog(_npcid: string, _currentText: egret.TextField) {
 
-        _currentText = new egret.TextField();
+        
         //_currentText.text = "Wait for init"
+        _currentText.text = "";
         this.addChild(_currentText);
         _currentText.x = 0
 
@@ -61,8 +63,8 @@ class DialoguePanel extends egret.DisplayObjectContainer {
                 if (taskInfo[t].fromNpcId == _npcid || taskInfo[t].toNpcId == _npcid) {
 
 
-                    _currentText.text += "Task: "+taskInfo[t].id  + " Status: " + taskInfo[t].status +  "\n";
-                    
+                    _currentText.text += "Task: " + taskInfo[t].id + "\n" ;//+ " Status: " + taskInfo[t].status + "\n";
+
 
                 }
             }
@@ -73,8 +75,9 @@ class DialoguePanel extends egret.DisplayObjectContainer {
     private onDialogPanelClicked(_npcid: string) {
 
 
-
+        this.dialoguePanelBg.$setTouchEnabled(true);
         this.dialoguePanelBg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+
 
             console.log("DialogBGClick");
 
@@ -82,7 +85,7 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
 
         this.btn_Accept.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-
+            this.initDialog(_npcid, this.currentTask)
 
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
@@ -98,15 +101,15 @@ class DialoguePanel extends egret.DisplayObjectContainer {
                         TaskService.getInstance().accept(t);//////////////////////
                         console.log("Accept Successed");
 
-                    }else{
+                    } else {
 
-                        console.log(taskInfo[t].id +" is Unavaliable Now");
+                        console.log(taskInfo[t].id + " is Unavaliable Now");
                     }
                 }
             });
 
 
-            
+
 
 
 
@@ -114,7 +117,7 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
 
         this.btn_Finish.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-
+            this.initDialog(_npcid, this.currentTask)
             var menu = TaskService.getInstance();
             menu.getTaskByCustomRule(function sortForNpc(taskInfo) {
 
@@ -122,26 +125,26 @@ class DialoguePanel extends egret.DisplayObjectContainer {
 
                     //console.log(taskInfo[t].fromNpcId);
                     //console.log(taskInfo[t].toNpcId);
-/*
-                    if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.DURING) {
-                        console.log("Task Unfinished");
-                    }
-*/
+                    /*
+                                        if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.DURING) {
+                                            console.log("Task Unfinished");
+                                        }
+                    */
                     if (taskInfo[t].toNpcId == _npcid && taskInfo[t].status == TaskStatus.CAN_SUBMIT) {
 
 
                         TaskService.getInstance().finish(t);/////////////////////////
                         console.log("Finish Successed")
-                    
 
-                    }else{
+
+                    } else {
                         console.log("Task Unfinished");
                     }
 
                 }
             });
 
-            
+
 
         }, this);
 
